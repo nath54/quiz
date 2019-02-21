@@ -2,7 +2,7 @@
 import random,os
 dire='datasquiz/'
 cac,cacc="#","|"
-extf=".nathq"
+ext=".nathq"
 
 fichs=[]
 
@@ -19,7 +19,6 @@ def begin():
 def a(fich):
     voc=[]
     f=open(fich,'r').read().split(cacc)
-    print(f)
     for ff in f:
         g=ff.split(cac)
         if len(g)>=1:
@@ -44,6 +43,8 @@ def b(voc):
     print(str(pts)+"/"+str(nb)+" : "+str(float(pts)/float(nb)*100.0)[:5]+" %")
 
 def c(fich):
+    print("nouveau élément")
+    print("")
     m1=inp("expression : ")
     m2=inp("traduction : ")
     txt=cacc+m1+cac+m2
@@ -68,7 +69,8 @@ def d():
             nf=dire+ff[0]
     while aa!='q':
         c(nf)
-        aa=raw_input(">>> ")
+        print("press 'q' to exit, press 'Enter' to add an new element to your quiz")
+        aa=inp(">>> ")
 
 def main():
   begin()
