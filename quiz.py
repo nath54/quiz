@@ -28,25 +28,28 @@ def a(fich):
 def b(voc):
     nb=random.randint(3,15)
     pts=0
+    nbq=0
     for x in range(nb):
-      vv=random.choice(voc)
-      if len(vv)==2:
-        if random.randint(0,1): v=[vv[0],vv[1]]
-        else: v=[vv[1],vv[0]]        
-        tt=v[0]+"\n : "
-        r=inp(tt)
-        if r==v[1]:
-            print("juste!")
-            pts+=1
-        else:
-            print("faux!,c'était : "+v[1])
-    print(str(pts)+"/"+str(nb)+" : "+str(float(pts)/float(nb)*100.0)[:5]+" %")
+        vv=random.choice(voc)
+        try:
+            if random.randint(0,1): v=[vv[0],vv[1]]
+            else: v=[vv[1],vv[0]]        
+            tt=v[0]+"\n : "
+            r=inp(tt)
+            if r==v[1]:
+                print("juste!")
+                pts+=1
+            else:
+                print("faux!,c'était : "+v[1])
+            nbq+=1
+        except: pass
+    print(str(pts)+"/"+str(nbq)+" : "+str(float(pts)/float(nbq)*100.0)[:5]+" %")
 
 def c(fich):
     print("nouveau élément")
     print("")
-    m1=inp("expression : ")
-    m2=inp("traduction : ")
+    m1=inp("élément 1 : ")
+    m2=inp("élément 2 : ")
     txt=cacc+m1+cac+m2
     f=open(fich,"a")
     f.write(txt)
