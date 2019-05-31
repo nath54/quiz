@@ -2,8 +2,8 @@
 import random,os
 dire='datasquiz/'
 cac,cacc="#","|"
-ext=".nathq"
-
+extf=".nathq"
+ext='.nathq'
 fichs=[]
 
 def inp(txt):
@@ -25,31 +25,61 @@ def a(fich):
             voc.append(g)
     return voc
 
+def espace(nb):
+    for x in range(nb): print(" ")
+
 def b(voc):
-    nb=random.randint(3,15)
+    lstc=[0,1]
+    print("modes disponibles :")
+    print(" -1:chances aléatoires d'êtres interrogés sur la question normalement ou l'inverse(par défaut)")
+    print(" -2:n'interroge que sur les questions normalement")
+    print(" -3:n'interroge que sur l'inverse des questions")
+    md=inp("mode : ")
+    if md=='1': lstc=[0,1]
+    elif md=='3': lstc=[0]
+    else: lstc=[1]
+    nb=random.randint(7,20)
     pts=0
-    nbq=0
     for x in range(nb):
-        vv=random.choice(voc)
-        try:
-            if random.randint(0,1): v=[vv[0],vv[1]]
-            else: v=[vv[1],vv[0]]        
-            tt=v[0]+"\n : "
-            r=inp(tt)
-            if r==v[1]:
-                print("juste!")
-                pts+=1
-            else:
-                print("faux!,c'était : "+v[1])
-            nbq+=1
-        except: pass
-    print(str(pts)+"/"+str(nbq)+" : "+str(float(pts)/float(nbq)*100.0)[:5]+" %")
+      espace(20)
+      print("----------------------------------")
+      vv=random.choice(voc)
+      if len(vv)==2:
+        if random.choice(lstc): v=[vv[0],vv[1]]
+        else: v=[vv[1],vv[0]]
+        print("question n°"+str(x+1)+"/"+str(nb))      
+        if x!=0:print("points : "+str(pts)+"/"+str(x)+"  score actuel : "+str(float(pts)/float(x)*100.0)[:5]+" %")
+        print(" ")
+        print("q : "+str(v[0]))
+        print("\nréponse : ")
+        tt=">>>"
+        r=inp(tt)
+        if r==v[1]:
+            print(" ")
+            print("Vous avez juste !")
+            pts+=1
+        else:
+            print("Dommage, vous avez faux !")
+            print("La bonne réponse était : "+v[1])
+        print(" ")
+        print("----------------------------------")
+        inp("suivant")
+    espace(20)
+    print("SCORE FINAL : ")
+    print(" ")
+    print("Points : "+str(pts)+"/"+str(nb))
+    print("Vous avez "+str(float(pts)/float(nb)*100.0)[:5]+" % de réponses justes")
+    print(" ")
+    inp("fin")
+    print("Voulez vous refaire ce quiz ?")
+    print("  1-oui")
+    print("  2-non")
+    r=inp(" : ")
+    if r=="1" : b(voc)
 
 def c(fich):
-    print("nouveau élément")
-    print("")
-    m1=inp("élément 1 : ")
-    m2=inp("élément 2 : ")
+    m1=inp("question : ")
+    m2=inp("reponse : ")
     txt=cacc+m1+cac+m2
     f=open(fich,"a")
     f.write(txt)
@@ -72,7 +102,6 @@ def d():
             nf=dire+ff[0]
     while aa!='q':
         c(nf)
-        print("press 'q' to exit, press 'Enter' to add an new element to your quiz")
         aa=inp(">>> ")
 
 def main():
